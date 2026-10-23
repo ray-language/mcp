@@ -7,11 +7,11 @@
 >
 > ```toml
 > [dependencies]
-> mcp = "^0.3.0"
+> mcp = "^0.3.1"
 > ```
 >
 > Without an index, the direct git dependency:
-> `mcp = "git+https://github.com/ray-language/mcp@v0.3.0"`.
+> `mcp = "git+https://github.com/ray-language/mcp@v0.3.1"`.
 
 
 El [Model Context Protocol](https://modelcontextprotocol.io) escrito en raylang puro, por los dos
@@ -217,7 +217,7 @@ el texto que lee el modelo, y el `Err` le llega como llamada fallida, con su men
   peticiones vive en una base de datos o tras un canal, nunca en una variable capturada.
 - **Por HTTP, sin `token`, solo se contesta a un `Host` de loopback** (`localhost`, `127.0.0.1`,
   `[::1]`, con cualquier puerto) o a uno de `hosts` (`"mcp.lan"` o `"mcp.lan:8765"`); cualquier
-  otro es un 403. Es la defensa contra el *DNS rebinding*: una página de `evil.example` que
+  otro es un 403, y un `Host` malformado (`localhost:1@evil.example`) un 400. Es la defensa contra el *DNS rebinding*: una página de `evil.example` que
   resuelve a `127.0.0.1` manda `Host: evil.example`. Además se rechaza una petición de otro
   origen (cabecera `Origin` distinta del `Host`). Con `token` puesto se acepta cualquier `Host`
   (la página no conoce el token) y cada petición debe llevar `Authorization: Bearer <token>`,
